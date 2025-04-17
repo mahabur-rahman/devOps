@@ -8,6 +8,9 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') || 3000;
 
+  // 🔐 Enable CORS so frontend can access backend
+  app.enableCors();
+
   await app.listen(port);
   console.log(`🚀 Server running on http://localhost:${port}`);
 }
