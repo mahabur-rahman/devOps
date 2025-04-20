@@ -1,9 +1,10 @@
-import Events from "./components/events";
+import Games from "./components/Events";
+
 
 function App() {
   return (
     <>
-      <Events />
+      <Games/>
     </>
   );
 }

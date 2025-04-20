@@ -1,22 +1,26 @@
-# Use the official Node.js image with Alpine as a base
+# Use official Node.js image
 FROM node:20-alpine
 
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application files to the container
+# Copy the rest of the frontend code
 COPY . .
 
-# Build the React application
+# Build the frontend (this will generate a `dist/` folder)
 RUN npm run build
 
-# Expose the port the app will run on
-EXPOSE 5173
+# Install a simple static server
+RUN npm install -g serve
 
-# Serve the build folder using a simple HTTP server
-CMD ["npx", "serve", "build"]
+# Expose frontend port
+EXPOSE 3000
+
+# Run the built frontend with a static file server
+CMD ["serve", "-s", "dist", "-l", "3000"]
