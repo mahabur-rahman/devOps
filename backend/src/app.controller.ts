@@ -1,12 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Res } from '@nestjs/common';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHome(@Res() res: Response) {
+    res.setHeader('Content-Type', 'text/html');
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Kub First App</title>
+        </head>
+        <body>
+          <h1>Hello from kub-first-app! 🚀</h1>
+        </body>
+      </html>
+    `);
   }
 }
