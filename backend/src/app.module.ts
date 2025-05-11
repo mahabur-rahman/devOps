@@ -12,10 +12,10 @@ class InlineHtmlController {
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Inline HTML</title>
+        <title>Inline JS mahabur</title>
       </head>
       <body>
-        <h1>Hello from inline HTML in AppModule!!!!!!!!</h1>
+        <h1>Hello from inline HTML in JSmahabur</h1>
       </body>
       </html>
     `);
