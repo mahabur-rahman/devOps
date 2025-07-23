@@ -1,0 +1,29 @@
+name: Parallel and Dependent Jobs Example
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Lint code
+        run: echo "Linting code..." # Replace with your real lint command
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run tests
+        run: echo "Running tests..." # Replace with your real test command
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build project
+        run: echo "Building project..." # Replace with your real build command 
