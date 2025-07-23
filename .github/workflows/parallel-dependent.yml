@@ -26,4 +26,4 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build project
-        run: echo "Building project..." # Replace with your real build command 
+        run: echo "Building project..." # Replace with your real build command
