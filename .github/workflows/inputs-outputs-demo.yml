@@ -1,4 +1,4 @@
-name: Inputs and Outputs Demo
+name: Inputs and Output for it
 
 on:
   workflow_dispatch:
