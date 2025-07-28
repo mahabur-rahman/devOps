@@ -1,0 +1,27 @@
+name: Functions Demo
+
+on:
+  push:
+    branches: ["github-action"]
+  workflow_dispatch:
+
+jobs:
+  functions-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use hashFiles function for cache key
+        uses: actions/cache@v4
+        with:
+          path: backend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('backend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Print hashFiles output
+        run: |
+          echo "Hash of package-lock.json: ${{ hashFiles('backend/package-lock.json') }}"
+      - name: Print startsWith and endsWith usage
+        run: |
+          echo "Does branch start with 'refs/heads/main'? ${{ startsWith(github.ref, 'refs/heads/main') }}"
+          echo "Does branch end with 'github-action'? ${{ endsWith(github.ref, 'github-action') }}"
