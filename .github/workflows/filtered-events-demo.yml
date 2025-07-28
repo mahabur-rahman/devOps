@@ -1,0 +1,39 @@
+name: Filtered Events Demo
+
+on:
+  push:
+    branches: ["main", "github-action"]
+    paths:
+      - "backend/src/**"
+      - "backend/package.json"
+      - "backend/package-lock.json"
+    tags:
+      - "v*"
+  pull_request:
+    branches: ["main", "github-action"]
+    types: [opened, closed, synchronize, reopened]
+    paths:
+      - "backend/src/**"
+      - "backend/package.json"
+      - "backend/package-lock.json"
+  issues:
+    types: [opened, edited, closed]
+
+jobs:
+  filtered-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Print event info
+        run: |
+          echo "Triggered by ${{ github.event_name }} on branch ${{ github.ref }}"
+      - name: Install dependencies
+        run: npm install
+        working-directory: backend
+      - name: Run build
+        run: npm run build
+        working-directory: backend
+      - name: Run tests
+        run: npm test
+        working-directory: backend
