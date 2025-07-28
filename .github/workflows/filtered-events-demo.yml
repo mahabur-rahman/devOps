@@ -1,4 +1,4 @@
-name: Filtered Events Demo
+name: Filtered Events Apply
 
 on:
   push:
