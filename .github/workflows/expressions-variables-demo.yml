@@ -1,0 +1,38 @@
+name: Expressions and Variables Demo
+
+on:
+  push:
+    branches: ["github-action"]
+  workflow_dispatch:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    env:
+      GLOBAL_ENV: "This is a global environment variable"
+    steps:
+      - name: Print expressions
+        run: |
+          echo "Current branch: ${{ github.ref }}"
+          echo "Is this a push event? ${{ github.event_name == 'push' }}"
+          echo "Branch (no uppercase transform available): ${{ github.ref }}"
+      - name: Print global environment variable
+        run: |
+          echo "Global ENV: $GLOBAL_ENV"
+      - name: Set and use step variable
+        id: step1
+        run: |
+          echo "::set-output name=step_var::Hello from step variable!"
+      - name: Use step output variable
+        run: |
+          echo "Step output: ${{ steps.step1.outputs.step_var }}"
+      - name: Set job-level environment variable
+        env:
+          JOB_ENV: "This is a job-level environment variable"
+        run: |
+          echo "Job ENV: $JOB_ENV"
+      - name: Use organization/repository/environment context
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Workflow: ${{ github.workflow }}"
