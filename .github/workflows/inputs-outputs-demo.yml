@@ -1,0 +1,34 @@
+name: Inputs and Outputs Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_flag:
+        description: 'Build project?'
+        required: true
+        default: 'yes'
+      test_flag:
+        description: 'Run tests?'
+        required: true
+        default: 'yes'
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print input values
+        run: |
+          echo "Build flag: ${{ github.event.inputs.build_flag }}"
+          echo "Test flag: ${{ github.event.inputs.test_flag }}"
+      - name: Conditionally build
+        if: ${{ github.event.inputs.build_flag == 'yes' }}
+        run: echo "Building project..."
+      - name: Conditionally test
+        if: ${{ github.event.inputs.test_flag == 'yes' }}
+        run: echo "Running tests..."
+      - name: Set output value
+        id: set_output
+        run: echo "::set-output name=result::Success!"
+      - name: Use output value
+        run: |
+          echo "Previous step output: ${{ steps.set_output.outputs.result }}"
